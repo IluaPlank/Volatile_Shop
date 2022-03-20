@@ -1,8 +1,8 @@
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.LongAdder;
 
 public class Shop {
-    AtomicLong money = new AtomicLong(0);
+    LongAdder money = new LongAdder();
     private long sumShop;
     final int SIZE_MAS = 20;
 
@@ -14,11 +14,11 @@ public class Shop {
             sumShop += list.get(i);
         }
         System.out.println("выручка " + Thread.currentThread().getName() + "а составляет: " + sumShop);
-        money.addAndGet(sumShop);
+        money.add(sumShop);
     }
 
     public long getCurrent() {
-        return money.get();
+        return money.sum();
     }
 
     public ArrayList<Long> profit(int size) {
