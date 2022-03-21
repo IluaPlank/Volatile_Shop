@@ -1,20 +1,15 @@
 import java.util.ArrayList;
 import java.util.concurrent.atomic.LongAdder;
+import java.util.stream.IntStream;
 
 public class Shop {
     LongAdder money = new LongAdder();
-    private long sumShop;
     final int SIZE_MAS = 20;
 
     public synchronized void sumMoney() {
         System.out.println(Thread.currentThread().getName() + " считает деньги");
         ArrayList<Long> list = profit(SIZE_MAS);
-
-        for (int i = 0; i < list.size(); i++) {
-            sumShop += list.get(i);
-        }
-        System.out.println("выручка " + Thread.currentThread().getName() + "а составляет: " + sumShop);
-        money.add(sumShop);
+        IntStream.range(0, list.size()).forEach(i -> money.add(list.get(i)));
     }
 
     public long getCurrent() {
